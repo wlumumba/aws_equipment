@@ -119,7 +119,7 @@ if (isset($_POST['submit1']) && $_POST['submit1'] == "submit"){
         echo "<p>You chose device: ".$devices[$device_index]."</p>";
         
         $sql="select s.serial_num 
-        from data.serials as s, data.devices as d, data.brands as b 
+        from data.serials as s, data.brands as b, data.devices as d
         where d.device_id = s.device_id and b.brand_id = s.brand_id and device = '$devices[$device_index]'";
         
     }
@@ -134,47 +134,58 @@ if (isset($_POST['submit1']) && $_POST['submit1'] == "submit"){
         where d.device_id = s.device_id and b.brand_id = s.brand_id and brand = '$brands[$brand_index]'";
     }
 
-    #display the serials (needs server side processing)
-    $result=$dblink->query($sql) or
-            die("Something went wrong with $sql");
-    $data = $result->fetch_all(MYSQLI_ASSOC);
-    echo "<p>Number of rows is: ".mysqli_num_rows($result)."</p>";
-    
-    echo '<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css" />
-    <table id="tblUser">
-        <thead>
-            <th>Serial</th>
-        </thead>
-        <tbody>
-        ';
-            if(!empty($data)) {  
-                foreach($data as $row) { 
-                echo '<tr>
-                    <td>'.$row["serial_num"].'</td>
-                </tr>';
-                } 
-        }
+    #display the serials
+    if($sql){
+        $countSQL = "select count(*) from ($sql) x;";
+        $result=$dblink->query($countSQL) or
+                die("Something went wrong with $$countSQL");
         
-    echo    '</tbody>
-    </table>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
-    <script>
-    jQuery(document).ready(function($) {
-        $("#tblUser").DataTable();
-    } );
-    </script>';
+        #get count from result
+        $count = $result->fetch_array(MYSQLI_NUM)[0];
+        echo "<p>Number of rows is: ".$count."</p>";
 
-    
-    // if($sql){
-    //     $result=$dblink->query($sql) or
-    //         die("Something went wrong with $sql");
-    //     echo "<p>Number of rows is: ".mysqli_num_rows($result)."</p>";
-    //     while ($data = $result->fetch_array(MYSQLI_ASSOC)) {
-    //         echo "<div>".$data['serial_num']."</div>";
-    //     }
-    // }
+        #pass vars to server side processing
+        session_start();
+        $_SESSION['sql'] = $sql;
+        $_SESSION['total'] = $count;
+        
+
+        #Datatable display (makes a GET request)
+        echo '<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css" />
+        <table id="tblSerial">
+            <thead>
+                <tr>
+                    <th>Serial</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Serial</th>
+                </tr>
+            </tfoot>
+        </table>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
+        <script>
+        jQuery(document).ready(function($) {
+            $("#tblSerial").DataTable( {
+                "processing": true,
+                "serverSide": true,
+                "ajax": "pagination.php"
+            } );
+        } );
+        </script>';
+        
+        // if($sql){
+        //     $result=$dblink->query($sql) or
+        //         die("Something went wrong with $sql");
+        //     echo "<p>Number of rows is: ".mysqli_num_rows($result)."</p>";
+        //     while ($data = $result->fetch_array(MYSQLI_ASSOC)) {
+        //         echo "<div>".$data['serial_num']."</div>";
+        //     }
+        // }
+    }
 }
 
 
