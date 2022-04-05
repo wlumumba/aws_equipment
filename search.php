@@ -147,7 +147,7 @@ if (isset($_POST['submit1']) && $_POST['submit1'] == "submit"){
         </thead>
         <tbody>
         ';
-            if(!empty($data)) { 
+            if(!empty($data)) {  
                 foreach($data as $row) { 
                 echo '<tr>
                     <td>'.$row["serial_num"].'</td>
