@@ -1,4 +1,6 @@
 <?php
+include_once('bootstrap.php');
+
 $un="root";
 $pw="utsa2022!";
 $db="data";
@@ -55,7 +57,7 @@ if(!isset($_POST['submit1']) && !isset($_POST['submit2'])){
     #Serial entry
     echo "<form method='post' action=''>";
     echo "<p>Enter a serial number:</p>";
-    echo "<input type='text' name='serial' pattern='SN-[a-z0-9]{32}' title='SN-[32 characters]'></input>";
+    echo "<input type='text' class='form-control' name='serial' required='required' pattern='SN-[a-z0-9]{32}' title='SN-[32 characters]'></input>";
     echo "<div><button type='submit' name='submit2' value='submit'>Submit</button></div>";
     echo "</form>";
 }
@@ -158,11 +160,6 @@ if (isset($_POST['submit1']) && $_POST['submit1'] == "submit"){
                     <th>Serial</th>
                 </tr>
             </thead>
-            <tfoot>
-                <tr>
-                    <th>Serial</th>
-                </tr>
-            </tfoot>
         </table>
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -176,15 +173,6 @@ if (isset($_POST['submit1']) && $_POST['submit1'] == "submit"){
             } );
         } );
         </script>';
-        
-        // if($sql){
-        //     $result=$dblink->query($sql) or
-        //         die("Something went wrong with $sql");
-        //     echo "<p>Number of rows is: ".mysqli_num_rows($result)."</p>";
-        //     while ($data = $result->fetch_array(MYSQLI_ASSOC)) {
-        //         echo "<div>".$data['serial_num']."</div>";
-        //     }
-        // }
     }
 }
 
