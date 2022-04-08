@@ -1,9 +1,7 @@
 <?php
-$un="root";
-$pw="utsa2022!";
-$db="data";
-$hostname="localhost";
-$dblink=new mysqli($hostname, $un, $pw, $db);
+include_once('config.php');
+include_once('bootstrap.php');
+include('helpers.php');
 
 if(!isset($_POST['submit'])){
     echo "<form method='post' action=''>";
@@ -22,19 +20,9 @@ if(isset($_POST['submit'])){
     $_POST['manufacturer'] = strtolower($_POST['manufacturer']);
     
     #check for serial existence -> bad
-    if($_POST['serial']){
-        $sql = "select device_id, brand_id, serial_num 
-            from data.serials 
-            where serial_num like '%$_POST[serial]%';";
-
-        $result=$dblink->query($sql) or
-            die("Something went wrong with $sql");
-        $data = $result->fetch_array(MYSQLI_ASSOC);
-
-        if($data){
-            echo "<p>Serial number already exists. Try a different one.</p>";
-            return;
-        }
+    if(check_serial($_POST['serial'])){
+        echo "<p>Serial number already exists. Try a different one.</p>";
+        return;
     }
     
     #find device, manu if exist; otherwise create

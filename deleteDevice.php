@@ -1,10 +1,6 @@
 <?php
-$un="root";
-$pw="utsa2022!";
-$db="data";
-$hostname="localhost";
-$dblink=new mysqli($hostname, $un, $pw, $db);
-
+include_once('config.php');
+include_once('bootstrap.php');
 
 if(!isset($_POST['submit'])){
    
@@ -21,7 +17,7 @@ if(isset($_POST['submit'])){
         #Verify serial number
         $sql = "select device_id, brand_id, serial_num 
             from data.serials 
-            where serial_num like '%$_POST[serial]%';";
+            where serial_num like '%$_POST[serial]%' limit 1;";
 
         $result=$dblink->query($sql) or
             die("Something went wrong with $sql");

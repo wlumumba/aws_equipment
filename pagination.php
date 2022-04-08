@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 # Pull credientials
@@ -26,7 +27,7 @@ $query = $dblink->query($sql) or
 $result = [];
 while ($row = $query->fetch_assoc()) 
 {
-    $result[] = [$row['serial_num']];
+    $result[] = [$row['auto_id'], $row['serial_num'], "<a href='view_device.php?did=".$row['auto_id']."'>View Items</a>"];
 }
 
 # Return the data as JSON
@@ -36,4 +37,5 @@ echo json_encode([
     'recordsFiltered' => $totalRecords,
     'data' => $result,
 ]);
+
 ?>
