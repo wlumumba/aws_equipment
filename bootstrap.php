@@ -13,6 +13,7 @@
     <header class="mb-auto">
       <nav class="navbar navbar-dark bg-dark">
           <a href="/" class="navbar-brand">Home</a>
+          <h4 class="align-text-top">J</h4>
       </nav>
     </header>
 </body>

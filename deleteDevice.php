@@ -8,7 +8,7 @@ if(!isset($_POST['submit'])){
     #Serial entry
     echo "<p>Enter an existing serial number:</p>";
     echo "<input type='text' name='serial' required='required' pattern='SN-[a-z0-9]{32}' title='SN-[32 characters]'></input>";
-    echo "<div style='padding:20px 0px'><button type='submit' name='submit' value='submit'>Submit Change</button></div>";
+    echo "<div style='padding:20px 0px'><button class='btn btn-primary' type='submit' name='submit' value='submit'>Submit Change</button></div>";
     echo "</form>";
 }
 

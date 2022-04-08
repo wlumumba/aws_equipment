@@ -11,7 +11,7 @@ if(!isset($_POST['submit'])){
     echo "<input type='text' name='manufacturer' required='required' maxlength='20'></input>";
     echo "<p>Enter a serial number:</p>";
     echo "<input type='text' name='serial' required='required' pattern='SN-[a-z0-9]{32}' title='SN-[32 characters]'></input>";
-    echo "<div><button type='submit' name='submit' value='submit'>Submit</button></div>";
+    echo "<div><button class='btn btn-primary' type='submit' name='submit' value='submit'>Submit</button></div>";
     echo "</form>";
 }
 

@@ -1,9 +1,7 @@
 <?php
-$un="root";
-$pw="utsa2022!";
-$db="data";
-$hostname="localhost";
-$dblink=new mysqli($hostname, $un, $pw, $db);
+include_once('config.php');
+include_once('bootstrap.php');
+include('helpers.php');
 
 #Fill devices array
 $sql="Select device from devices order by device_id";
@@ -51,7 +49,7 @@ if(!isset($_POST['submit'])){
         echo "<option value='".$key."'>".$value."</option>";
     }
     echo "</select>";
-    echo "<div style='padding:20px 0px'><button type='submit' name='submit' value='submit'>Submit Change</button></div>";
+    echo "<div style='padding:20px 0px'><button class='btn btn-primary' type='submit' name='submit' value='submit'>Submit Change</button></div>";
     echo "</form>"; 
 }
 

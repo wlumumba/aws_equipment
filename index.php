@@ -2,7 +2,7 @@
 include_once('bootstrap.php');
 
 echo "
-    <div class='container-fluid'>
+    <div class='container-fluid' style='padding: 10px'>
         <a href='search.php' class='btn btn-primary'>Search for devices</a>
         <a href='addDevice.php' class='btn btn-primary'>Add a device</a>
         <a href='modifyDevice.php' class='btn btn-primary'>Modify a device</a>

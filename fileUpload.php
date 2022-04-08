@@ -10,7 +10,7 @@ echo "<input type='text' class='form-control' name='serial' required='required' 
 echo "<p>Upload a file:</p>";
 echo "<input type='file' name='file' required='required'></input>";
 echo "<hr>";
-echo "<div><button type='submit' name='submit' value='submit'>Submit</button></div>";
+echo "<div><button class='btn btn-success' type='submit' name='submit' value='submit'>Submit</button></div>";
 echo "</form>";
 
 #parse form
